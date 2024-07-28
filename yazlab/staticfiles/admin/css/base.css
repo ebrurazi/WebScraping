@@ -1,0 +1,69 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #F3E5F5;
+
+}
+
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f4f4f4; /* Arama alanının arkaplan rengi */
+    padding: 20px;
+}
+
+header {
+    background-color: #BA68C8;
+    color: white;
+    text-align: center;
+    padding: 1em;
+}
+
+h1 {
+    margin: 20px 0; /* H1 etiketinin margin'ini ayarla */
+    color: #4CAF50; /* H1 etiketinin rengini ayarla */
+    font-size: 2em; /* H1 etiketinin yazı tipi büyüklüğünü ayarla */
+}
+
+form {
+    margin-top: 20px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 20px; /* Giriş alanının padding'ini artır */
+    font-size: 20px; /* Giriş alanının yazı tipi büyüklüğünü artır */
+    width: 100%; /* Giriş alanının genişliğini yüzde olarak ayarla */
+    box-sizing: border-box; /* Padding ve border'ları içeriğin genişliğine dahil et */
+}
+
+button {
+    padding: 20px 40px; /* Düğmenin padding'ini ve genişliğini artır */
+    font-size: 20px; /* Düğmenin yazı tipi büyüklüğünü artır */
+    background-color: #BA68C8;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color:#BA68C8;
+}
+
+footer {
+    text-align: center;
+    background-color: #BA68C8;
+    color: white;
+    padding: 1em;
+}

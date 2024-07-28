@@ -1,0 +1,74 @@
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color:#F3E5F5;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Öğeleri dikey olarak ortala */
+    justify-content: center; /* Öğeleri yatay olarak ortala */
+    min-height: 100vh;
+}
+.image-container {
+    text-align: center; /* Resmi yatay olarak ortala */
+}
+.image-container img {
+    width: 300px;
+    height: 300px;
+}
+
+/* Giriş alanı ve butonu resmin altına almak için main bölümünün stillerini değiştir */
+main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row; /* Ana eksen yönünü yatay yap */
+    justify-content: space-between; /* İçerik arasında boşluk bırak */
+    padding: 20px;
+}
+
+.row {
+    display: flex;
+    flex-direction: space-between;
+    width: 80%; /* Container'ın genişliğinin yüzde 80'i kadarlık bir alan kullan */
+}
+.left,
+.right {
+    width: calc((100% - 20%) / 2); /* Container'ın genişliğinin yüzde 80'i kadarlık alanı ikiye bölecek şekilde hesapla */
+    margin-top: 20px; /* Üst kenardan boşluk bırak */
+    padding: 20px;
+    border: 1px solid #F3E5F5; /* Çerçeve ekle */
+    border-radius: 5px; /* Kenarları yuvarlak yap */
+}
+
+form {
+    width: 20%; /* Formun genişliğini belirle */
+    margin: 20px;
+    padding: 20px;
+    /*border: 1px solid #3b2d2d; /* Forma çerçeve ekle */
+    border-radius: 5px; /* Kenarları yuvarlak yap */
+    /*background-color: #f9f9f9; /* Arka plan rengi */
+    align-self: flex-start; /* Üst kenara hizala */
+}
+
+.publications {
+    flex-grow: 1; /* Yayın listesi bölümünün esnek büyümesini sağla */
+    width: 60%; /* Yayın listesinin genişliğini belirle */
+}
+
+.publication {
+    margin-bottom: 20px; /* Yayınlar arası boşluk */
+    padding: 10px;
+    border-bottom: 1px solid #eee; /* Alt çizgi ekle */
+}
+
+footer {
+    text-align: center;
+    background-color: #6A1B9A;
+    color: #F3E5F5;
+    padding: 1em;
+}

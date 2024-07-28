@@ -1,0 +1,114 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akademik Arama</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+
+    <main>
+        <div class="image-container">
+            <img src="{% static 'images/resim3.png' %}" alt="Akademik Yayın Arama">
+        </div>
+        <form method="POST" action="{% url 'search_results' %}">
+            {% csrf_token %}
+            <label for="search_query"></label>
+            <input type="text" name="search_query" id="search_query" required autocomplete="off" placeholder="Ara...">
+            <div id="suggestions" class="suggestions"></div>
+            <button type="submit">ARA</button>
+        </form>
+         <!-- Filtreleme formu başlangıcı -->
+        <!-- home.html -->
+        <!-- home.html içindeki form -->
+       <!-- home.html içindeki formu güncelleyin -->
+        <form method="get" action="{% url 'home' %}">
+            {{ form.as_p }}
+            <button type="submit">Filtrele</button>
+        </form>
+
+
+
+        <!-- Filtreleme formu bitişi -->
+
+        <!-- Filtrelenmiş sonuçların listelenmesi -->
+        <div class="publications">
+            {% for publication in publications %}
+                <div class="publication">
+                    <h3>{{ publication.Baslik|default:"Başlık Yok" }}</h3>
+                    <p><strong>Yazarlar:</strong> {{ publication.Yazar|default:"Yazar Yok" }}</p>
+                    <p><strong>Alıntı Sayısı:</strong> {{ publication.Alinti|default:"Bilgi Yok" }}</p>
+                    <p><strong>Tarih:</strong> {{ publication.Tarih|default:"Bilgi Yok" }}</p>
+                    <p><strong>Özet:</strong> {{ publication.Ozet|default:"Özet Yok" }}</p>
+                    <p><strong>Anahtar Kelimeler:</strong> {{ publication.Anahtar_Kelimeler|default:"Anahtar Kelimeler Yok" }}</p>
+                    <p><strong>DOI Numarası:</strong> {{ publication.Doi_Numarası|default:"DOI Yok" }}</p>
+                    <p><strong>PDF Linki:</strong> {% if publication.PDF_Linki %}<a href="{{ publication.PDF_Linki }}">PDF İndir</a>{% else %}PDF Linki Yok{% endif %}</p>
+                    <p><strong>Referanslar:</strong> {% if publication.Referanslar %}{{ publication.Referanslar|join:", " }}{% else %}Referans Yok{% endif %}</p>
+                </div>
+            {% empty %}
+                <p>Hiç yayın bulunamadı.</p>
+            {% endfor %}
+        </div>
+        <div class="container">
+            <h1>BAŞLIK</h1>
+            <div class="row">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+        </div>
+        
+    </main>
+
+
+    <footer>
+        <p>&copy; 2024 Akademik Arama</p>
+    </footer>
+    <script>
+        const inputField = document.getElementById('search_query');
+        const suggestionsDiv = document.getElementById('suggestions');
+    
+        function showPreviousSearches() {
+            const previousSearches = JSON.parse(localStorage.getItem('previousSearches') || '[]').slice(-10).reverse();
+            if (previousSearches.length) {
+                suggestionsDiv.innerHTML = previousSearches.map(search => `<div class="suggestion-item">${search}</div>`).join('');
+                suggestionsDiv.style.display = 'block';
+            }
+        }
+    
+        // Kullanıcı arama kutusuna odaklandığında önceki aramaları göster
+        inputField.addEventListener('focus', showPreviousSearches);
+    
+        // Kullanıcı yazmaya başladığında kelime önerilerini getir
+        inputField.addEventListener('input', () => {
+            const inputValue = inputField.value.trim();
+            if (inputValue) {
+                fetch(`https://api.datamuse.com/words?sp=${inputValue}*`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const suggestions = data.map(item => item.word);
+                        suggestionsDiv.innerHTML = suggestions.map(suggestion => `<div class="suggestion-item">${suggestion}</div>`).join('');
+                        suggestionsDiv.style.display = 'block';
+                    });
+            } else {
+                // Kullanıcı input'u temizlediğinde tekrar önceki aramaları göster
+                showPreviousSearches();
+            }
+        });
+    
+        // Kullanıcı bir öneriye tıkladığında, arama kutusuna öneriyi yerleştir ve önerileri gizle
+        suggestionsDiv.addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('suggestion-item')) {
+                inputField.value = e.target.textContent;
+                suggestionsDiv.style.display = 'none';
+            }
+        });
+        
+    </script>
+    
+
+</body>
+</html>

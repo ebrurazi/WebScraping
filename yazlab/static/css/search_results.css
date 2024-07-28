@@ -1,0 +1,90 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #F3E5F5;
+}
+
+header {
+    color: #BA68C8;
+    text-align: center;
+    padding: 1em;
+    background-color:#F3E5F5;
+}
+
+h1 {
+    margin: 20px 0;
+    color:#E1BEE7  ;
+    font-size: 2.5em;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 15px;
+    font-size: 18px;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #BA68C8;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #BA68C8;
+}
+
+.result-container {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-text {
+    flex-grow: 1;
+    padding: 15px;
+    margin: 0;
+    color: #9c27b0;
+}
+
+.pdf-link {
+    padding: 15px;
+    text-decoration: none;
+    color: #9c27b0;
+    background-color: #f4f4f4;
+}
+
+.pdf-link:hover {
+    background-color: #ddd;
+}
+
+.footer {
+    text-align: center;
+    background-color:#BA68C8;
+    color: white;
+    padding: 1em;
+}

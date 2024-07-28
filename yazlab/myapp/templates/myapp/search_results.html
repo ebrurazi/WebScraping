@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARAMA SONUÇLARI</title>
+    <link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+</head>
+<body>
+
+    <header>
+        <h1>ARAMA SONUÇLARI</h1>
+        
+    </header>
+ <!-- Geri Dön Düğmesi -->
+    
+    
+ <main>
+    <div class="back-button-container">
+        <a href="{% url 'home' %}" class="back-button">Ana Sayfaya Dön</a>
+    </div>
+    <form method="POST" action="{% url 'search_results' %}">
+        {% csrf_token %}
+        <label for="search_query"></label>
+        <input type="text" name="search_query" id="search_query" required>
+        <button type="submit">Ara</button>
+    </form>
+
+    <!-- Sıralama Seçenekleri Kutusu -->
+    <form method="POST" action="{% url 'search_results_sorted' %}">
+        {% csrf_token %}
+        <label for="sorting">Sıralama Kriteri:</label>
+        <select name="sorting" id="sorting" onchange="this.form.submit()">
+            <option value="">Seçiniz</option>  <!-- Varsayılan seçenek olarak "Seçiniz" eklendi -->
+            <option value="latest">En Yeni Yayımlanan</option>
+            <option value="oldest">En Eski Yayımlanan</option>
+            <option value="most_cited">En Çok Alıntı Yapılan</option>
+            <option value="least_cited">En Az Alıntı Yapılan</option>
+        </select>
+        
+    </form>
+    <div>
+        <form method="POST" action="{% url 'search_results' %}">
+            {% csrf_token %}
+            <div>Yazim Hatasi: {{ search_results.0.yazimHatasi }} ile arama yap</div>
+            <input type="hidden" name="search_query" value="{{ search_results.0.yazimHatasi }}">
+            <button type="submit">Ara</button>
+        </form>
+    </div>
+    
+    {% if search_results %}
+  
+        {% for result in search_results %}
+            <div class="result-container">
+                <p class="result-text">
+                    <a href="{{ result.link}}" target="_blank">{{ result.Baslik }}</a><br>
+                    Yazar: {{ result.Yazar }}<br>
+                    Alıntı Sayısı: {{ result.Alinti }}<br>
+                    Tarih: {{ result.Tarih }}<br>
+                    Özet: {{ result.Ozet }}<br>
+                    Referanslar: {{ result.Referanslar }}<br>
+                    Anahtar Kelimeler: {{ result.Anahtar_Kelimeler }}<br>
+                    Doi Numarası: {{ result.Doi_Numarası }}<br>
+                    
+
+                </p>
+                <a class="pdf-link" href="{{ result.PDF_Linki}}" target="_blank">PDF İndir</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+
+   
+</main>
+
+<footer class="footer">
+    <p>&copy; 2024 Akademik Arama</p>
+</footer>
+
+</body>
+</html>
